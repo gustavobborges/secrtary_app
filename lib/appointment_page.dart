@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:secretary/utils/appointment.dart';
-import 'dart:io';
 
 class AppointmentPage extends StatefulWidget {
   final Appointment appointment;
@@ -73,30 +72,56 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 keyboardType: TextInputType.name,
                 controller: _nameController,
                 decoration: InputDecoration(labelText: "Título"),
+                onChanged: (text) {
+                  _edited = true;
+                  setState(() {
+                    _editedAppointment.name = text;
+                  });
+                },
               ),
               TextField(
-                focusNode: _nameFocus,
                 keyboardType: TextInputType.name,
                 controller: _descriptionController,
                 decoration: InputDecoration(labelText: "Descrição"),
+                onChanged: (text) {
+                  _edited = true;
+                  setState(() {
+                    _editedAppointment.description = text;
+                  });
+                },
               ),
               TextField(
-                focusNode: _nameFocus,
                 keyboardType: TextInputType.name,
                 controller: _placeController,
                 decoration: InputDecoration(labelText: "Local"),
+                onChanged: (text) {
+                  _edited = true;
+                  setState(() {
+                    _editedAppointment.place = text;
+                  });
+                },
               ),
               TextField(
-                focusNode: _nameFocus,
                 keyboardType: TextInputType.datetime,
                 controller: _dateController,
                 decoration: InputDecoration(labelText: "Data"),
+                onChanged: (text) {
+                  _edited = true;
+                  setState(() {
+                    _editedAppointment.date = text;
+                  });
+                },
               ),
               TextField(
-                focusNode: _nameFocus,
                 keyboardType: TextInputType.datetime,
                 controller: _timeController,
                 decoration: InputDecoration(labelText: "Hora"),
+                onChanged: (text) {
+                  _edited = true;
+                  setState(() {
+                    _editedAppointment.time = text;
+                  });
+                },
               ),
             ],
           ),
