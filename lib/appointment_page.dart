@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:secretary/utils/appointment.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class AppointmentPage extends StatefulWidget {
   final Appointment appointment;
@@ -18,6 +21,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
   TextEditingController _timeController = TextEditingController();
   bool _edited = false;
   final _nameFocus = FocusNode();
+  String date = "";
+  String dateText = "";
 
   @override
   void initState() {
@@ -36,6 +41,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
     return WillPopScope(
       onWillPop: _requestPop,
       child: Scaffold(
@@ -101,16 +107,42 @@ class _AppointmentPageState extends State<AppointmentPage> {
                   });
                 },
               ),
-              TextField(
-                keyboardType: TextInputType.datetime,
-                controller: _dateController,
-                decoration: InputDecoration(labelText: "Data"),
-                onChanged: (text) {
-                  _edited = true;
-                  setState(() {
-                    _editedAppointment.date = text;
-                  });
-                },
+              Row(
+                children: [
+                  Text("Data:"),
+                  IconButton(
+                    icon: Icon(Icons.date_range),
+                    onPressed: () async {
+                      final getDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2021),
+                        lastDate: DateTime(2022),
+                        locale: Localizations.localeOf(context),
+                      );
+                      // dateText = DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_Br')
+                      //     .format(getDate)
+                      //     .toString();
+                      date =
+                          DateFormat('dd/MM/yyyy').format(getDate).toString();
+                      print(date);
+                      _editedAppointment.date = date;
+                    },
+                  ),
+                  // Text(date != null ? date : "Selecione a data.."),
+                  // Text(!_editedAppointment.date.isEmpty
+
+                  //     ? DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_Br')
+                  //         .format(DateTime.parse(_editedAppointment.date))
+                  //         .toString()
+                  //     : dateText),
+                  if (widget.appointment != null)
+                    Text(_editedAppointment.date)
+                  else if (_editedAppointment.date != null)
+                    Text(date)
+                  else
+                    Text("Selecione uma data"),
+                ],
               ),
               TextField(
                 keyboardType: TextInputType.datetime,
