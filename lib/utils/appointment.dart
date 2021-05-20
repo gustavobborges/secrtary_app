@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 final String appointmentTable = "Appointment";
 final String idColumn = "idColumn";
@@ -8,6 +9,7 @@ final String descriptionColumn = "descriptionColumn";
 final String placeColumn = "placeColumn";
 final String dateColumn = "dateColumn";
 final String timeColumn = "timeColumn";
+final String dateTimeColumn = "dateTimeColumn";
 
 class AppointmentUtils {
   static final AppointmentUtils _instance = AppointmentUtils.internal();
@@ -30,7 +32,7 @@ class AppointmentUtils {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newVersion) async {
       await db.execute(
-          "CREATE TABLE $appointmentTable($idColumn INTEGER PRIMARY KEY, $nameColumn TEXT, $descriptionColumn TEXT, $placeColumn TEXT, $dateColumn TEXT, $timeColumn TEXT)");
+          "CREATE TABLE $appointmentTable($idColumn INTEGER PRIMARY KEY, $nameColumn TEXT, $descriptionColumn TEXT, $placeColumn TEXT, $dateColumn TEXT, $timeColumn TEXT, $dateTimeColumn TEXT)");
     });
   }
 
@@ -51,7 +53,8 @@ class AppointmentUtils {
         descriptionColumn,
         placeColumn,
         dateColumn,
-        timeColumn
+        timeColumn,
+        dateTimeColumn,
       ],
       where: "$idColumn = ?",
       whereArgs: [id],
@@ -79,8 +82,8 @@ class AppointmentUtils {
 
   Future<List<Appointment>> getAll() async {
     Database _dbSecretary = await db;
-    List listMap =
-        await _dbSecretary.rawQuery("SELECT * FROM $appointmentTable");
+    List listMap = await _dbSecretary
+        .rawQuery("SELECT * FROM $appointmentTable ORDER BY dateColumn");
     List<Appointment> listAppointment = [];
     for (Map map in listMap) {
       listAppointment.add(Appointment.fromMap(map));
@@ -96,6 +99,7 @@ class Appointment {
   String place;
   String date;
   String time;
+  String dateTime;
 
   Appointment();
 
@@ -106,6 +110,7 @@ class Appointment {
     place = map[placeColumn];
     date = map[dateColumn];
     time = map[timeColumn];
+    dateTime = map[dateTimeColumn];
   }
 
   Map toMap() {
@@ -115,7 +120,8 @@ class Appointment {
       descriptionColumn: description,
       placeColumn: place,
       dateColumn: date,
-      timeColumn: time
+      timeColumn: time,
+      dateTimeColumn: dateTime
     };
     if (id != null) {
       map[idColumn] = id;
