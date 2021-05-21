@@ -8,7 +8,7 @@ class ListAppointment extends StatefulWidget {
 }
 
 class _ListAppointmentState extends State<ListAppointment> {
-  List<Appointment> _appointments = [];
+  List<AppointmentModel> _appointments = [];
   AppointmentUtils utils = AppointmentUtils();
 
   @override
@@ -139,12 +139,12 @@ class _ListAppointmentState extends State<ListAppointment> {
     });
   }
 
-  void _deleteAppointment({Appointment appointment}) {
+  void _deleteAppointment({AppointmentModel appointment}) {
     utils.delete(appointment.id);
     _getAllAppointments();
   }
 
-  void _showAppointment({Appointment appointment}) async {
+  void _showAppointment({AppointmentModel appointment}) async {
     final recAppointment = await Navigator.push(
       context,
       MaterialPageRoute(

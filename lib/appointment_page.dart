@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class AppointmentPage extends StatefulWidget {
-  final Appointment appointment;
+  final AppointmentModel appointment;
   AppointmentPage({this.appointment});
 
   @override
@@ -14,7 +14,7 @@ class AppointmentPage extends StatefulWidget {
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
-  Appointment _editedAppointment;
+  AppointmentModel _editedAppointment;
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
   TextEditingController _placeController = TextEditingController();
@@ -41,7 +41,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
       _timeController.text = _editedAppointment.time;
       _dateTimeController.text = _editedAppointment.time;
     } else {
-      _editedAppointment = Appointment();
+      _editedAppointment = AppointmentModel();
     }
   }
 

@@ -8,7 +8,7 @@ class AppointmentButton extends StatefulWidget {
 }
 
 class _AppointmentButtonState extends State<AppointmentButton> {
-  List<Appointment> _appointments = [];
+  List<AppointmentModel> _appointments = [];
   AppointmentUtils utils = AppointmentUtils();
 
   @override
@@ -29,7 +29,7 @@ class _AppointmentButtonState extends State<AppointmentButton> {
     });
   }
 
-  void _showAppointment({Appointment appointment}) async {
+  void _showAppointment({AppointmentModel appointment}) async {
     final recAppointment = await Navigator.push(
       context,
       MaterialPageRoute(

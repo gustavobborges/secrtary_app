@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Calendar extends StatefulWidget {
+class Finance extends StatefulWidget {
   @override
-  _CalendarState createState() => _CalendarState();
+  _FinanceState createState() => _FinanceState();
 }
 
-class _CalendarState extends State<Calendar> {
+class _FinanceState extends State<Finance> {
   @override
   Widget build(BuildContext context) {
     return Container();

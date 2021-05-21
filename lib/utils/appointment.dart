@@ -36,14 +36,14 @@ class AppointmentUtils {
     });
   }
 
-  Future<Appointment> save(Appointment appointment) async {
+  Future<AppointmentModel> save(AppointmentModel appointment) async {
     Database _dbSecretary = await db;
     appointment.id =
         await _dbSecretary.insert(appointmentTable, appointment.toMap());
     return appointment;
   }
 
-  Future<Appointment> get(int id) async {
+  Future<AppointmentModel> get(int id) async {
     Database _dbSecretary = await db;
     List<Map> maps = await _dbSecretary.query(
       appointmentTable,
@@ -60,7 +60,7 @@ class AppointmentUtils {
       whereArgs: [id],
     );
     if (maps.length > 0) {
-      return Appointment.fromMap(maps.first);
+      return AppointmentModel.fromMap(maps.first);
     }
     return null;
   }
@@ -74,25 +74,25 @@ class AppointmentUtils {
     );
   }
 
-  Future<int> update(Appointment appointment) async {
+  Future<int> update(AppointmentModel appointment) async {
     Database _dbSecretary = await db;
     return _dbSecretary.update(appointmentTable, appointment.toMap(),
         where: "$idColumn = ?", whereArgs: [appointment.id]);
   }
 
-  Future<List<Appointment>> getAll() async {
+  Future<List<AppointmentModel>> getAll() async {
     Database _dbSecretary = await db;
     List listMap = await _dbSecretary
-        .rawQuery("SELECT * FROM $appointmentTable ORDER BY dateColumn");
-    List<Appointment> listAppointment = [];
+        .rawQuery("SELECT * FROM $appointmentTable ORDER BY dateTimeColumn");
+    List<AppointmentModel> listAppointment = [];
     for (Map map in listMap) {
-      listAppointment.add(Appointment.fromMap(map));
+      listAppointment.add(AppointmentModel.fromMap(map));
     }
     return listAppointment;
   }
 }
 
-class Appointment {
+class AppointmentModel {
   int id;
   String name;
   String description;
@@ -101,9 +101,9 @@ class Appointment {
   String time;
   String dateTime;
 
-  Appointment();
+  AppointmentModel();
 
-  Appointment.fromMap(Map map) {
+  AppointmentModel.fromMap(Map map) {
     id = map[idColumn];
     name = map[nameColumn];
     description = map[descriptionColumn];
