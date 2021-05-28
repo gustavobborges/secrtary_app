@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:secretary/utils/appointment.dart';
+import 'package:intl/intl.dart';
 
 class Calendar extends StatefulWidget {
   @override
@@ -10,6 +11,9 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   List<AppointmentModel> _appointments = [];
   AppointmentUtils utils = AppointmentUtils();
+  DateTime dateTime = null;
+
+  DateFormat dateFormat = DateFormat("dd/MM/yyyy HH:mm");
 
   @override
   void initState() {
@@ -33,15 +37,16 @@ class _CalendarState extends State<Calendar> {
   _AppointmentDataSource _getCalendarDataSource() {
     List<Appointment> appointments = <Appointment>[];
 
-    utils.getAll().then((value) {
-      _appointments = value;
-    });
+    // utils.getAll().then((value) {
+    //   _appointments = value;
+    // });
 
     for (var app in _appointments) {
+      dateTime = dateFormat.parse(app.dateTime);
       appointments.add(Appointment(
-        startTime: DateTime.now(),
-        endTime: DateTime.now().add(Duration(minutes: 10)),
-        subject: 'Meeting',
+        startTime: dateTime,
+        endTime: dateTime.add(Duration(minutes: 10)),
+        subject: app.description,
         color: Colors.green,
         startTimeZone: '',
         endTimeZone: '',

@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.cyan,
       appBar: AppBar(
         backgroundColor: Colors.cyan,
-        title: Text("Secretária"),
+        // title: Text("Secretária"),
         centerTitle: true,
       ),
       floatingActionButton: buttons[currentIndex],
@@ -43,6 +43,7 @@ class _HomeState extends State<Home> {
         onTap: (index) {
           setState(() {
             currentIndex = index;
+            print(DateTime.now());
           });
         },
         items: [
