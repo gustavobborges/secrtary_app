@@ -14,7 +14,9 @@ class _ListAppointmentState extends State<ListAppointment> {
   @override
   void initState() {
     super.initState();
-    _getAllAppointments();
+    setState(() {
+      _getAllAppointments();
+    });
   }
 
   @override

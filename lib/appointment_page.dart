@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:secretary/utils/appointment.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -147,14 +146,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     lastDate: DateTime(2022),
                                     locale: Localizations.localeOf(context),
                                   );
-                                  // dateText = DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_Br')
-                                  //     .format(getDate)
-                                  //     .toString();
                                   date = DateFormat('dd/MM/yyyy')
                                       .format(getDate)
                                       .toString();
-                                  print(date);
-                                  _editedAppointment.date = date;
+                                  setState(() {
+                                    _editedAppointment.date = date;
+                                  });
                                 },
                               ),
                             ],

@@ -14,7 +14,9 @@ class _CalendarState extends State<Calendar> {
   @override
   void initState() {
     super.initState();
-    _getAllAppointments();
+    setState(() {
+      _getAllAppointments();
+    });
   }
 
   @override
